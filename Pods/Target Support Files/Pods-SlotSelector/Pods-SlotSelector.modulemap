@@ -1,0 +1,6 @@
+framework module Pods_SlotSelector {
+  umbrella header "Pods-SlotSelector-umbrella.h"
+
+  export *
+  module * { export * }
+}
