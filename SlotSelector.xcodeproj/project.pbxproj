@@ -39,6 +39,7 @@
 		25A177871FAB657D001E9B93 /* RxSlotSelector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 252925311FAB302D001530C9 /* RxSlotSelector.framework */; };
 		25A177881FAB657D001E9B93 /* RxSlotSelector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 252925311FAB302D001530C9 /* RxSlotSelector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		25F355791FACBC22008FC081 /* RxSlotSelectorDataSourceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A1776B1FAB5A7C001E9B93 /* RxSlotSelectorDataSourceProxy.swift */; };
+		25F3557B1FACC7D0008FC081 /* RxSlotSelectorDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3557A1FACC7D0008FC081 /* RxSlotSelectorDelegateProxy.swift */; };
 		311137420A55810F71E30937 /* Pods_RxSlotSelector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E986DEE6B7FE0F1EFB445C1E /* Pods_RxSlotSelector.framework */; };
 		8C63E7B5191AB2DC57DE51ED /* Pods_RxDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B9AEAFE6B672D8A6728648 /* Pods_RxDemo.framework */; };
 		99CF0184BC4114050FF49EEE /* Pods_SlotSelector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43873494F1B04F12B7FB98BA /* Pods_SlotSelector.framework */; };
@@ -133,6 +134,7 @@
 		25A1777A1FAB656E001E9B93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25A1777D1FAB656E001E9B93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25A1777F1FAB656E001E9B93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25F3557A1FACC7D0008FC081 /* RxSlotSelectorDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSlotSelectorDelegateProxy.swift; sourceTree = "<group>"; };
 		354BF30B005371738460EFC7 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		3B6B0FB2A640EFA1BB5C2276 /* Pods-SlotSelector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlotSelector.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SlotSelector/Pods-SlotSelector.debug.xcconfig"; sourceTree = "<group>"; };
 		43873494F1B04F12B7FB98BA /* Pods_SlotSelector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SlotSelector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -246,6 +248,7 @@
 				25A177671FAB5891001E9B93 /* RxSlotSelectorReactiveArrayDataSource.swift */,
 				25A177691FAB5A15001E9B93 /* RxSlotSelectorDataSourceType.swift */,
 				25A1776B1FAB5A7C001E9B93 /* RxSlotSelectorDataSourceProxy.swift */,
+				25F3557A1FACC7D0008FC081 /* RxSlotSelectorDelegateProxy.swift */,
 				252925341FAB302D001530C9 /* Info.plist */,
 			);
 			path = RxSlotSelector;
@@ -698,6 +701,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25F3557B1FACC7D0008FC081 /* RxSlotSelectorDelegateProxy.swift in Sources */,
 				25F355791FACBC22008FC081 /* RxSlotSelectorDataSourceProxy.swift in Sources */,
 				25A1776A1FAB5A15001E9B93 /* RxSlotSelectorDataSourceType.swift in Sources */,
 				25A177681FAB5891001E9B93 /* RxSlotSelectorReactiveArrayDataSource.swift in Sources */,

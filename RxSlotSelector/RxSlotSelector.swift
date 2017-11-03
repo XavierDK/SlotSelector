@@ -21,18 +21,18 @@
       let dataSource = RxSlotSelectorDataSource()
       return self.items(dataSource: dataSource)(source)
     }
-
+    
     public func items< DataSource: RxSlotSelectorDataSourceType & SlotSelectorDataSource> (dataSource: DataSource) -> (_ source: Observable<[SlotModel]>) -> Disposable {
-        return { source in
-          
-          // Strong reference is needed because data source is in use until result subscription is disposed
-          return source.subscribeProxyDataSource(ofObject: self.base, dataSource: dataSource as SlotSelectorDataSource, retainDataSource: true) { [weak slotSelector = self.base] (_: RxSlotSelectorDataSourceProxy, event) -> Void in
-            guard let slotSelector = slotSelector else {
-              return
-            }
-            dataSource.slotSelector(slotSelector, observedEvent: event)
+      return { source in
+        
+        // Strong reference is needed because data source is in use until result subscription is disposed
+        return source.subscribeProxyDataSource(ofObject: self.base, dataSource: dataSource as SlotSelectorDataSource, retainDataSource: true) { [weak slotSelector = self.base] (_: RxSlotSelectorDataSourceProxy, event) -> Void in
+          guard let slotSelector = slotSelector else {
+            return
           }
+          dataSource.slotSelector(slotSelector, observedEvent: event)
         }
+      }
     }
   }
   
@@ -60,6 +60,10 @@
       return RxSlotSelectorDataSourceProxy.installForwardDelegate(dataSource, retainDelegate: false, onProxyForObject: self.base)
     }
     
+    public var delegate: DelegateProxy<SlotSelectorController, SlotSelectorDelegate> {
+      return RxSlotSelectorDelegateProxy.proxy(for: base)
+    }
+    
     /**
      Synchronous helper method for retrieving a model at indexPath through a reactive data source.
      */
@@ -70,6 +74,80 @@
       
       return castOrFatalError(element)
     }
+    
+    public var slotSelected: ControlEvent<IndexPath> {
+      
+      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.slotSelected(forElementIndex:andSlotIndex:)))
+        .map({ a in
+          IndexPath(item: try castOrThrow(Int.self, a[1]), section: try castOrThrow(Int.self, a[0]))
+        })
+      
+      return ControlEvent(events: source)
+    }
+    
+    public var elementSelected: ControlEvent<Int> {
+      
+      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.elementSelected(forElementIndex:)))
+        .map({ a in
+          try castOrThrow(Int.self, a[0])
+        })
+      
+      return ControlEvent(events: source)
+    }
+    
+    public var loadDates: ControlEvent<Int> {
+      
+      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.errorWhenLoadingDates(from:)))
+        .map({ a in
+          try castOrThrow(Int.self, a[0])
+        })
+      
+      return ControlEvent(events: source)
+    }
+    
+    public var previousAvailableSlotClicked: ControlEvent<Void> {
+      
+      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.previousAvailableSlotClicked))
+        .map({ _ in return })
+      
+      return ControlEvent(events: source)
+    }
+    
+    public var nextAvailableSlotClicked: ControlEvent<Void> {
+      
+      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.nextAvailableSlotClicked))
+        .map({ _ in return })
+      
+      return ControlEvent(events: source)
+    }
+    
+    public var previousSlotClicked: ControlEvent<Void> {
+      
+      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.previousSlotClicked))
+        .map({ _ in return })
+      
+      return ControlEvent(events: source)
+    }
+    
+    public var nextSlotClicked: ControlEvent<Void> {
+      
+      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.nextSlotClicked))
+        .map({ _ in return })
+      
+      return ControlEvent(events: source)
+    }
+  }
+  
+  //
+  // HELPERS
+  //
+  
+  func castOrThrow<T>(_ resultType: T.Type, _ object: Any) throws -> T {
+    guard let returnValue = object as? T else {
+      throw RxCocoaError.castingError(object: object, targetType: resultType)
+    }
+    
+    return returnValue
   }
   
   func castOrFatalError<T>(_ value: AnyObject!, message: String) -> T {
@@ -109,7 +187,7 @@
         
         let proxy = DelegateProxy.proxy(for: object)
         let unregisterDelegate = DelegateProxy.installForwardDelegate(dataSource, retainDelegate: retainDataSource, onProxyForObject: object)
-        // this is needed to flush any delayed old state (https://github.com/RxSwiftCommunity/RxDataSources/pull/75)
+        
         object.view.layoutIfNeeded()
         
         let subscription = self.asObservable()
@@ -118,7 +196,6 @@
             bindingError(error)
             return Observable.empty()
           }
-          // source can never end, otherwise it would release the subscriber, and deallocate the data source
           .concat(Observable.never())
           .takeUntil(object.rx.deallocated)
           .subscribe { [weak object] (event: Event<E>) in
