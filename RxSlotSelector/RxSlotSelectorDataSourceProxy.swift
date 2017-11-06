@@ -82,6 +82,22 @@ let slotSelectorDataSourceNotSet = SlotSelectorDataSourceNotSet()
     public func slotValue(forSelector selector: SlotSelectorController, atElementIndex elementIndex: Int, andSlotIndex slotIndex: Int) -> String {
       return (_requiredMethodsDataSource ?? slotSelectorDataSourceNotSet).slotValue(forSelector: selector, atElementIndex: elementIndex, andSlotIndex: slotIndex)
     }
+    
+    public func previousElementNotEmpty(fromElementIndex elementIndex: Int) -> Int {
+      return (_requiredMethodsDataSource ?? slotSelectorDataSourceNotSet).previousElementNotEmpty?(fromElementIndex: elementIndex) ?? -1
+    }
+    
+    public func previousValueNotEmpty(fromElementIndex elementIndex: Int) -> String? {
+      return (_requiredMethodsDataSource ?? slotSelectorDataSourceNotSet).previousValueNotEmpty?(fromElementIndex: elementIndex)
+    }
+    
+    public func nextElementNotEmpty(fromElementIndex elementIndex: Int) -> Int {
+      return (_requiredMethodsDataSource ?? slotSelectorDataSourceNotSet).nextElementNotEmpty?(fromElementIndex: elementIndex) ?? -1
+    }
+    
+    public  func nextValueNotEmpty(fromElementIndex elementIndex: Int) -> String? {
+      return (_requiredMethodsDataSource ?? slotSelectorDataSourceNotSet).nextValueNotEmpty?(fromElementIndex: elementIndex)
+    }
 
     
     /// For more information take a look at `DelegateProxyType`.

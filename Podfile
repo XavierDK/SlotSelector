@@ -16,8 +16,7 @@ target 'RxDemo' do
   # Pods for RxDemo
   
   pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'RxDataSources'
+  pod 'RxCocoa'  
 
 end
 
@@ -29,7 +28,6 @@ target 'RxSlotSelector' do
   
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'RxDataSources'
 
 end
 

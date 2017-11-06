@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7D7623B374C7EF765A8400DA5746AFE1"
+               BlueprintIdentifier = "D1F3E1044E165690806770CF9F38200F"
                BuildableName = "Pods_RxSlotSelector.framework"
                BlueprintName = "Pods-RxSlotSelector"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7D7623B374C7EF765A8400DA5746AFE1"
+            BlueprintIdentifier = "D1F3E1044E165690806770CF9F38200F"
             BuildableName = "Pods_RxSlotSelector.framework"
             BlueprintName = "Pods-RxSlotSelector"
             ReferencedContainer = "container:Pods.xcodeproj">

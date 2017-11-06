@@ -15,14 +15,25 @@
   import UIKit
   import SlotSelector
   
+  public enum SlotTimeState {
+    case previous
+    case next
+  }
+  
   public extension Reactive where Base: SlotSelectorController {
     
-    public func items(_ source: Observable<[SlotModel]>) -> Disposable {
-      let dataSource = RxSlotSelectorDataSource()
-      return self.items(dataSource: dataSource)(source)
+    public func items(_ source: Observable<[SlotModel]>)
+      -> (_ emptyFactory: @escaping (SlotTimeState, Int) -> (Int, String?))
+      -> Disposable {
+        return { emptyFactory in
+          let dataSource = RxSlotSelectorDataSource(emptyFactory)
+          return self.items(dataSource: dataSource)(source)
+        }
     }
     
-    public func items< DataSource: RxSlotSelectorDataSourceType & SlotSelectorDataSource> (dataSource: DataSource) -> (_ source: Observable<[SlotModel]>) -> Disposable {
+    public func items< DataSource: RxSlotSelectorDataSourceType & SlotSelectorDataSource> (dataSource: DataSource)
+      -> (_ source: Observable<[SlotModel]>)
+      -> Disposable {
       return { source in
         
         // Strong reference is needed because data source is in use until result subscription is disposed
@@ -105,36 +116,24 @@
       return ControlEvent(events: source)
     }
     
-    public var previousAvailableSlotClicked: ControlEvent<Void> {
+    public var availableElementClicked: ControlEvent<SlotTimeState> {
       
-      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.previousAvailableSlotClicked))
-        .map({ _ in return })
+      let pastSource = delegate.methodInvoked(#selector(SlotSelectorDelegate.previousAvailableElementClicked))
+        .map({ _ in return SlotTimeState.previous })
+      let nextSource = delegate.methodInvoked(#selector(SlotSelectorDelegate.nextAvailableElementClicked))
+        .map({ _ in return SlotTimeState.next })
       
-      return ControlEvent(events: source)
+      return ControlEvent(events: Observable.merge(pastSource, nextSource))
     }
     
-    public var nextAvailableSlotClicked: ControlEvent<Void> {
+    public var elementClicked: ControlEvent<SlotTimeState> {
       
-      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.nextAvailableSlotClicked))
-        .map({ _ in return })
+      let pastSource = delegate.methodInvoked(#selector(SlotSelectorDelegate.previousElementClicked))
+        .map({ _ in return SlotTimeState.previous })
+      let nextSource = delegate.methodInvoked(#selector(SlotSelectorDelegate.nextElementClicked))
+        .map({ _ in return SlotTimeState.next })
       
-      return ControlEvent(events: source)
-    }
-    
-    public var previousSlotClicked: ControlEvent<Void> {
-      
-      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.previousSlotClicked))
-        .map({ _ in return })
-      
-      return ControlEvent(events: source)
-    }
-    
-    public var nextSlotClicked: ControlEvent<Void> {
-      
-      let source = delegate.methodInvoked(#selector(SlotSelectorDelegate.nextSlotClicked))
-        .map({ _ in return })
-      
-      return ControlEvent(events: source)
+      return ControlEvent(events: Observable.merge(pastSource, nextSource))
     }
   }
   

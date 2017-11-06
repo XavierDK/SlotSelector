@@ -9,14 +9,12 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import RxDataSources
 import RxSlotSelector
 import SlotSelector
 
 class ViewController: UIViewController {
   
   let slotSelectorController = SlotSelectorController()
-  //  let dataSource = RxSlotSelectorSectionedReloadDataSource<SectionModel<String, String>>()
   
   let disposeBag = DisposeBag()
   
@@ -26,14 +24,17 @@ class ViewController: UIViewController {
     view.addSubview(slotSelectorController.view)
     
     slotSelectorController.view.translatesAutoresizingMaskIntoConstraints = false
-    slotSelectorController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-    slotSelectorController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    slotSelectorController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-    slotSelectorController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    
+    NSLayoutConstraint.activate([
+      slotSelectorController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      slotSelectorController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      slotSelectorController.view.topAnchor.constraint(equalTo: view.topAnchor),
+      slotSelectorController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      ])
     
     slotSelectorController.rx.slotSelected
       .distinctUntilChanged()
-      .subscribe(onNext:{ print("Slot selectecx \($0)") })
+      .subscribe(onNext:{ print("Slot selected \($0)") })
       .disposed(by: disposeBag)
     
     slotSelectorController.rx.elementSelected
@@ -41,11 +42,28 @@ class ViewController: UIViewController {
       .subscribe(onNext:{ print("Element selected \($0)") })
       .disposed(by: disposeBag)
     
-    Observable.just([SlotModel(title: "RGEGE", items: ["1", "2", "3"]),
-                     SlotModel(title: "RGEGE2", items: ["4", "5", "6"]),
-                     SlotModel(title: "RGEGE3", items: [])])
-      .bind(to: slotSelectorController.rx.items)
+    Observable.just([SlotModel(title: "Test", items: ["1", "2", "3"]),
+                     SlotModel(title: "Test2", items: ["4", "5", "6"]),
+                     SlotModel(title: "Test3", items: [])])
+      .bind(to: slotSelectorController.rx.items) { (timeState, element) in
+        
+        print(timeState)
+        print(element)
+        return (1, "Test2")
+      }
       .disposed(by: disposeBag)
+    
+    slotSelectorController.rx.elementClicked.subscribe(onNext: { (timeState) in
+      print("ELEMENT CLICKED => \(timeState)")
+    })
+      .disposed(by: disposeBag)
+    
+    slotSelectorController.rx.availableElementClicked.subscribe(onNext: { (timeState) in
+      print("AVAILABLE ELEMENT CLICKED => \(timeState)")
+    })
+      .disposed(by: disposeBag)
+    
+    slotSelectorController.goTo(elementIndex: 2)
   }
 }
 

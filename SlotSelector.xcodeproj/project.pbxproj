@@ -27,7 +27,7 @@
 		252925391FAB302D001530C9 /* RxSlotSelector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 252925311FAB302D001530C9 /* RxSlotSelector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2529253F1FAB303E001530C9 /* SlotSelector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 252924F71FAB2B6C001530C9 /* SlotSelector.framework */; };
 		25A177601FAB33E6001E9B93 /* RxSlotSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A1775F1FAB33E6001E9B93 /* RxSlotSelector.swift */; };
-		25A177681FAB5891001E9B93 /* RxSlotSelectorReactiveArrayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A177671FAB5891001E9B93 /* RxSlotSelectorReactiveArrayDataSource.swift */; };
+		25A177681FAB5891001E9B93 /* RxSlotSelectorDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A177671FAB5891001E9B93 /* RxSlotSelectorDataSource.swift */; };
 		25A1776A1FAB5A15001E9B93 /* RxSlotSelectorDataSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A177691FAB5A15001E9B93 /* RxSlotSelectorDataSourceType.swift */; };
 		25A177741FAB656E001E9B93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A177731FAB656E001E9B93 /* AppDelegate.swift */; };
 		25A177761FAB656E001E9B93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A177751FAB656E001E9B93 /* ViewController.swift */; };
@@ -124,7 +124,7 @@
 		252925331FAB302D001530C9 /* RxSlotSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxSlotSelector.h; sourceTree = "<group>"; };
 		252925341FAB302D001530C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25A1775F1FAB33E6001E9B93 /* RxSlotSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSlotSelector.swift; sourceTree = "<group>"; };
-		25A177671FAB5891001E9B93 /* RxSlotSelectorReactiveArrayDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSlotSelectorReactiveArrayDataSource.swift; sourceTree = "<group>"; };
+		25A177671FAB5891001E9B93 /* RxSlotSelectorDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSlotSelectorDataSource.swift; sourceTree = "<group>"; };
 		25A177691FAB5A15001E9B93 /* RxSlotSelectorDataSourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSlotSelectorDataSourceType.swift; sourceTree = "<group>"; };
 		25A1776B1FAB5A7C001E9B93 /* RxSlotSelectorDataSourceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSlotSelectorDataSourceProxy.swift; sourceTree = "<group>"; };
 		25A177711FAB656E001E9B93 /* RxDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,7 +245,7 @@
 			children = (
 				252925331FAB302D001530C9 /* RxSlotSelector.h */,
 				25A1775F1FAB33E6001E9B93 /* RxSlotSelector.swift */,
-				25A177671FAB5891001E9B93 /* RxSlotSelectorReactiveArrayDataSource.swift */,
+				25A177671FAB5891001E9B93 /* RxSlotSelectorDataSource.swift */,
 				25A177691FAB5A15001E9B93 /* RxSlotSelectorDataSourceType.swift */,
 				25A1776B1FAB5A7C001E9B93 /* RxSlotSelectorDataSourceProxy.swift */,
 				25F3557A1FACC7D0008FC081 /* RxSlotSelectorDelegateProxy.swift */,
@@ -544,16 +544,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Demo/Pods-Demo-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,16 +648,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-RxDemo/Pods-RxDemo-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -704,7 +696,7 @@
 				25F3557B1FACC7D0008FC081 /* RxSlotSelectorDelegateProxy.swift in Sources */,
 				25F355791FACBC22008FC081 /* RxSlotSelectorDataSourceProxy.swift in Sources */,
 				25A1776A1FAB5A15001E9B93 /* RxSlotSelectorDataSourceType.swift in Sources */,
-				25A177681FAB5891001E9B93 /* RxSlotSelectorReactiveArrayDataSource.swift in Sources */,
+				25A177681FAB5891001E9B93 /* RxSlotSelectorDataSource.swift in Sources */,
 				25A177601FAB33E6001E9B93 /* RxSlotSelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

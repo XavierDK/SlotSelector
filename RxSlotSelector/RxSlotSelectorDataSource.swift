@@ -29,7 +29,10 @@
   
   class RxSlotSelectorDataSource : NSObject, SectionedViewDataSourceType, RxSlotSelectorDataSourceType {
     
-    override init() {
+    let emptyFactory: (SlotTimeState, Int) -> (Int, String?)
+    
+    init(_ emptyFactory: @escaping (SlotTimeState, Int) -> (Int, String?)) {
+      self.emptyFactory = emptyFactory
       super.init()
     }
     
@@ -40,7 +43,6 @@
         slotSelectorDataSource.slotSelector(slotSelector, observedElements: sectionModels)
         }.on(observedEvent)
     }
-    
     
     func model(at indexPath: IndexPath) throws -> Any {
       precondition(indexPath.section == 0)
@@ -69,6 +71,26 @@
     
     func slotValue(forSelector selector: SlotSelectorController, atElementIndex elementIndex: Int, andSlotIndex slotIndex: Int) -> String {
       return itemModels?[elementIndex].items[slotIndex] ?? ""
+    }
+    
+    func previousElementNotEmpty(fromElementIndex elementIndex: Int) -> Int {
+      let (index, _) = emptyFactory(.previous, elementIndex)
+      return index
+    }
+
+    func previousValueNotEmpty(fromElementIndex elementIndex: Int) -> String? {
+      let (_, value) = emptyFactory(.previous, elementIndex)
+      return value
+    }
+
+    func nextElementNotEmpty(fromElementIndex elementIndex: Int) -> Int {
+      let (index, _) = emptyFactory(.next, elementIndex)
+      return index
+    }
+
+    func nextValueNotEmpty(fromElementIndex elementIndex: Int) -> String? {
+      let (_, value) = emptyFactory(.next, elementIndex)
+      return value
     }
   }
   

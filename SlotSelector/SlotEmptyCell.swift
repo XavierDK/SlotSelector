@@ -149,7 +149,7 @@ internal class SlotEmptyCell: UICollectionViewCell, SlotCellConfigurable {
     if let previousElement = selector?.dataSource?.previousElementNotEmpty?(fromElementIndex: elementIndex),
       previousElement >= 0 {
       
-      selector?.delegate?.previousAvailableSlotClicked?()
+      selector?.delegate?.previousAvailableElementClicked?()
       
       selector?.goTo(elementIndex: previousElement)
     }
@@ -162,7 +162,7 @@ internal class SlotEmptyCell: UICollectionViewCell, SlotCellConfigurable {
     if let nextElement = selector?.dataSource?.nextElementNotEmpty?(fromElementIndex: elementIndex),
       nextElement >= 0 {
 
-      selector?.delegate?.nextAvailableSlotClicked?()
+      selector?.delegate?.nextAvailableElementClicked?()
 
       selector?.goTo(elementIndex: nextElement)
     }

@@ -25,11 +25,11 @@
   @objc optional func slotSelected(forElementIndex elementIndex: Int, andSlotIndex slotIndex: Int)
   @objc optional func errorWhenLoadingDates(from elementIndex: Int)
   
-  @objc optional func previousAvailableSlotClicked()
-  @objc optional func nextAvailableSlotClicked()
+  @objc optional func previousAvailableElementClicked()
+  @objc optional func nextAvailableElementClicked()
 
-  @objc optional func previousSlotClicked()
-  @objc optional func nextSlotClicked()
+  @objc optional func previousElementClicked()
+  @objc optional func nextElementClicked()
 }
 
 
@@ -249,14 +249,14 @@
   @objc public func goToPrevious() {
     
     goTo(elementIndex: elementIndex - 1)
-    delegate?.previousSlotClicked?()
+    delegate?.previousElementClicked?()
   }
 
 
   @objc public func goToNext() {
 
     goTo(elementIndex: elementIndex + 1)
-    delegate?.nextSlotClicked?()
+    delegate?.nextElementClicked?()
   }
 
 
@@ -368,10 +368,10 @@ extension SlotSelectorController: UICollectionViewDataSource, UICollectionViewDe
     if newElementIndex != elementIndex {
       
       if newElementIndex > elementIndex {
-        delegate?.nextSlotClicked?()
+        delegate?.nextElementClicked?()
       }
       else {
-        delegate?.previousSlotClicked?()
+        delegate?.previousElementClicked?()
       }
       
       elementIndex = newElementIndex
